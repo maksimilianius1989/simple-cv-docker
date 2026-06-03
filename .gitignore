@@ -1,0 +1,7 @@
+!.gitignore
+
+/var/*
+!/var/.gitkeep
+
+/src/*
+!/src/.gitkeep
