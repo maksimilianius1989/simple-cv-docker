@@ -17,9 +17,8 @@ services:
     restart: always
     depends_on:
       - nestjs
-      - ./var/logs/nginx:/var/log/nginx
     volumes:
-      - ./docker/nginx/local.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./var/logs/nginx:/var/log/nginx
     ports:
       - "1090:80"
     networks:
@@ -36,5 +35,4 @@ services:
       - ./:/app
     networks:
       - simple-cv-network
-    #command: sh -c "yarn build && node dist/main.js"
-    command: sh -c "yarn start:dev"
+    command: sh -c "yarn build && node dist/main.js"
