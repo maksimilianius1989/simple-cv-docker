@@ -1,11 +1,6 @@
 networks:
   simple-cv-network:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.28.0.0/16
-          gateway: 172.28.0.254
 
 services:
   nginx:
@@ -18,6 +13,7 @@ services:
     depends_on:
       - nestjs
     volumes:
+      - ./:/app
       - ./var/logs/nginx:/var/log/nginx
     ports:
       - "1090:80"
@@ -27,12 +23,9 @@ services:
   nestjs:
     build:
       context: .
-      dockerfile: docker/node.docker
+      dockerfile: docker/node.prod.docker
     container_name: nestjs
     restart: always
     working_dir: /app/src/simple-cv-api
-    volumes:
-      - ./:/app
     networks:
       - simple-cv-network
-    command: sh -c "yarn build && node dist/main.js"

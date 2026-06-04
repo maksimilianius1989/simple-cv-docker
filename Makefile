@@ -16,10 +16,9 @@ init-prod:
 	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv.life.frontend.git src/simple-cv.life.frontend
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
 	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" > src/simple-cv-api/.env
-	echo "TELEGRAM_ BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
+	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "CHROME_PATH=/usr/bin/chromium" >> src/simple-cv-api/.env
-	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build --no-cache
-	cd src/simple-cv-api && yarn install --frozen-lockfile
+	${DOCKER_COMPOSE} - build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
 api-logs:
