@@ -23,9 +23,3 @@ init-prod:
 
 api-logs:
 	docker logs -f --tail 20 nestjs
-
-rebuild:
-	${DOCKER_COMPOSE} down
-	rm -rf src/*
-	make init
-
