@@ -29,6 +29,8 @@ services:
     volumes:
        - ./docker/nginx/local.conf:/etc/nginx/conf.d/default.conf:ro
        - ./:/app
+    ports:
+      - "9229:9229"
     networks:
       - simple-cv-network
-    command: sh -c "yarn start:dev"
+    command: sh -c "yarn start:debug"
