@@ -1,10 +1,9 @@
 DOCKER_COMPOSE=docker compose
 
 init:
-	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv-api.git src/simple-cv-api
-	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv.life.frontend.git src/simple-cv.life.frontend
+	make clone
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
-	echo "NODE_ENV=development" >> src/simple-cv-api/.env
+	echo "NODE_ENV=development" > src/simple-cv-api/.env
 	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
 	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "TELEGRAM_MODE=polling" >> src/simple-cv-api/.env
@@ -15,10 +14,9 @@ init:
 	${DOCKER_COMPOSE} up -d
 
 init-prod:
-	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv-api.git src/simple-cv-api
-	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv.life.frontend.git src/simple-cv.life.frontend
+	make clone
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
-	echo "NODE_ENV=production" >> src/simple-cv-api/.env
+	echo "NODE_ENV=production" > src/simple-cv-api/.env
 	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
 	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "TELEGRAM_MODE=webhook" >> src/simple-cv-api/.env
@@ -27,5 +25,16 @@ init-prod:
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build --no-cache
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
+cloning:
+	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv-api.git src/simple-cv-api
+	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv.life.frontend.git src/simple-cv.life.frontend
+
 api-logs:
 	docker logs -f --tail 20 nestjs
+
+update-prod-all:
+	${DOCKER_COMPOSE} down
+	git pull
+	cd src/simple-cv-api && git pull
+	cd src/simple-cv.life.frontend && git pull
+	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d --build
