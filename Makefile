@@ -26,7 +26,7 @@ init-prod:
 	echo "TELEGRAM_MODE=webhook" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_PATH=/telegram/webhook" >> src/simple-cv-api/.env
-	${DOCKER_COMPOSE} - build
+	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
 api-logs:
