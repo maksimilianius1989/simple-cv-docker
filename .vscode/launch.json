@@ -6,7 +6,7 @@
       "type": "node",
       "request": "attach",
       "address": "localhost",
-      "port": 9229,
+      "port": 1091,
 
       "localRoot": "${workspaceFolder}/src/simple-cv-api",
       "remoteRoot": "/app/src/simple-cv-api",
