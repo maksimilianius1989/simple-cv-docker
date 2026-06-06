@@ -3,15 +3,17 @@ networks:
     driver: bridge
 
 services:
-  nginx:
-    mem_limit: 1024m
+  simple-cv-nginx:
+    container_name: simple-cv-nginx
+    mem_limit: 128m
     build:
       context: docker/
       dockerfile: nginx.docker
     platform: linux/amd64
     restart: always
     depends_on:
-      - nestjs
+      - simple-cv-postgres
+      - simple-cv-nestjs
     volumes:
       - ./:/app
       - ./var/logs/nginx:/var/log/nginx
@@ -20,12 +22,31 @@ services:
     networks:
       - simple-cv-network
 
-  nestjs:
+  simple-cv-nestjs:
+    container_name: simple-cv-nestjs
+    mem_limit: 1024m
     build:
       context: .
       dockerfile: docker/node.prod.docker
-    container_name: nestjs
     restart: always
     working_dir: /app/src/simple-cv-api
+    depends_on:
+      - simple-cv-postgres
+    networks:
+      - simple-cv-network
+    
+  simple-cv-postgres:
+    container_name: simple-cv-postgres
+    mem_limit: 1024m
+    image: postgres:17.6
+    restart: always
+    environment:
+      POSTGRES_DB: simple_cv
+      POSTGRES_USER: simple_cv_user
+      POSTGRES_PASSWORD: fdew#$ds89$*#jkkk
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "1092:5432"
     networks:
       - simple-cv-network
