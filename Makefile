@@ -1,19 +1,24 @@
 DOCKER_COMPOSE=docker compose
 
 init:
-	make clone
+	make cloning
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
 	echo "NODE_ENV=development" > src/simple-cv-api/.env
 	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
 	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "TELEGRAM_MODE=polling" >> src/simple-cv-api/.env
 	echo "DATABASE_URL=postgresql://simple_cv_user_test:123456_test@simple-cv-postgres:5432/simple_cv_test?schema=public" >> src/simple-cv-api/.env
+	echo "JWT_SECRET=jwtsecrettest" >> src/simple-cv-api/.env
+	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
+	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
+	echo "COOKIE_DOMAIN=.simple-cv.local" >> src/simple-cv-api/.env
+	echo "FRONTENT_DOMAIN=simple-cv.local" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} build
 	cd src/simple-cv-api && yarn install
 	${DOCKER_COMPOSE} up -d
 
 init-prod:
-	make clone
+	make cloning
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
 	echo "NODE_ENV=production" > src/simple-cv-api/.env
 	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
@@ -22,6 +27,11 @@ init-prod:
 	echo "TELEGRAM_WEBHOOK_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_PATH=/telegram/webhook" >> src/siple-cv-api/.env
 	echo "DATABASE_URL=postgresql://simple_cv_user:fdew#$ds89$*#jkkk@simple-cv-postgres:5432/simple_cv?schema=public" >> src/simple-cv-api/.env
+	echo "JWT_SECRET=432#Q93*#$ffds+=-Z&" >> src/simple-cv-api/.env
+	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
+	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
+	echo "COOKIE_DOMAIN=.simple-cv.life" >> src/simple-cv-api/.env
+	echo "FRONTENT_DOMAIN=simple-cv.life" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
@@ -35,3 +45,9 @@ update-prod-all:
 	cd src/simple-cv-api && git pull
 	cd src/simple-cv.life.frontend && git pull
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d --build
+
+prisma:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma ${args}"
+
+migrate:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma migrate dev --name ${n}"

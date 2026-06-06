@@ -27,9 +27,14 @@ RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile --production=fal
 # Copy source
 COPY src/simple-cv-api ./
 
+RUN yarn prisma generate
+
 # Build app
 RUN yarn build
 
 EXPOSE 3000
 
-CMD ["node", "dist/main.js"]
+COPY docker/entrypoint.sh .
+RUN chmod +x entrypoint.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
