@@ -26,8 +26,8 @@ init-prod:
 	echo "TELEGRAM_MODE=webhook" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_PATH=/telegram/webhook" >> src/siple-cv-api/.env
-	echo "DATABASE_URL=postgresql://simple_cv_user:fdew#$ds89$*#jkkk@simple-cv-postgres:5432/simple_cv?schema=public" >> src/simple-cv-api/.env
-	echo "JWT_SECRET=432#Q93*#$ffds+=-Z&" >> src/simple-cv-api/.env
+	echo "DATABASE_URL=postgresql://simple_cv_user:fdew%23%24ds89%24%2A%23jkkk@simple-cv-postgres:5432/simple_cv?schema=public" >> src/simple-cv-api/.env
+	echo "JWT_SECRET=432#Q93*#$$ffds+=-Z&" >> src/simple-cv-api/.env
 	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
 	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
 	echo "COOKIE_DOMAIN=.simple-cv.life" >> src/simple-cv-api/.env
