@@ -1,7 +1,3 @@
-networks:
-  simple-cv-network:
-    driver: bridge
-
 services:
   simple-cv-nginx:
     container_name: simple-cv-nginx
@@ -50,3 +46,10 @@ services:
       - "1092:5432"
     networks:
       - simple-cv-network
+
+volumes:
+  postgres_data:
+
+networks:
+  simple-cv-network:
+    driver: bridge
