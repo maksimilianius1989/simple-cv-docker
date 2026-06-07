@@ -5,4 +5,4 @@ echo "Applying database migrations..."
 yarn prisma migrate deploy
 
 echo "Starting application..."
-node dist/main.js
+node dist/src/main.js
