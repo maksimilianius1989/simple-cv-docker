@@ -12,7 +12,7 @@ init:
 	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
 	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
 	echo "COOKIE_DOMAIN=.simple-cv.local" >> src/simple-cv-api/.env
-	echo "FRONTENT_DOMAIN=simple-cv.local" >> src/simple-cv-api/.env
+	echo "FRONTENT_DOMAIN=http://simple-cv.local:1090" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} build
 	cd src/simple-cv-api && yarn install
 	${DOCKER_COMPOSE} up -d
@@ -31,7 +31,7 @@ init-prod:
 	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
 	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
 	echo "COOKIE_DOMAIN=.simple-cv.life" >> src/simple-cv-api/.env
-	echo "FRONTENT_DOMAIN=simple-cv.life" >> src/simple-cv-api/.env
+	echo "FRONTENT_DOMAIN=https://simple-cv.life" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
