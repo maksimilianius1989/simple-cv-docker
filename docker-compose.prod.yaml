@@ -43,7 +43,7 @@ services:
     environment:
       POSTGRES_DB: simple_cv
       POSTGRES_USER: simple_cv_user
-      POSTGRES_PASSWORD: "fdew#$ds89$*#jkkk"
+      POSTGRES_PASSWORD: SoeeKKDs432_4pod446
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
