@@ -4,7 +4,6 @@ init:
 	make cloning
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
 	echo "NODE_ENV=development" > src/simple-cv-api/.env
-	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
 	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "TELEGRAM_MODE=polling" >> src/simple-cv-api/.env
 	echo "DATABASE_URL=postgresql://simple_cv_user_test:123456_test@simple-cv-postgres:5432/simple_cv_test?schema=public" >> src/simple-cv-api/.env
@@ -22,7 +21,6 @@ init-prod:
 	make cloning
 	cp src/simple-cv-api/.env.example src/simple-cv-api/.env
 	echo "NODE_ENV=production" > src/simple-cv-api/.env
-	echo "GEMINI_API_KEY=AQ.Ab8RN6LLlgHt4qc0yW4-zuzFNzjAUErUnDzE8u7wdmx0-5UuFQ" >> src/simple-cv-api/.env
 	echo "TELEGRAM_BOT_TOKEN=8828034118:AAEIR_aRQbdhWbmTz6WtYJH8Az4_1B78fL0" >> src/simple-cv-api/.env
 	echo "TELEGRAM_MODE=webhook" >> src/simple-cv-api/.env
 	echo "TELEGRAM_WEBHOOK_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
