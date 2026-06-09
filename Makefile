@@ -39,7 +39,7 @@ cloning:
 	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv-api.git src/simple-cv-api
 	git clone ssh://git@gitlab.it-vimax.com.ua:2022/it-vimax/simple-cv.life.frontend.git src/simple-cv.life.frontend
 
-update-prod-all:
+prod-update:
 	${DOCKER_COMPOSE} down
 	git pull
 	cd src/simple-cv-api && git pull
