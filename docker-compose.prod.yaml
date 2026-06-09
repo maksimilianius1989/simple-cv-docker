@@ -13,6 +13,7 @@ services:
     volumes:
       - ./:/app
       - ./var/logs/nginx:/var/log/nginx
+      - uploads:/app/src/uploads
     ports:
       - "1090:80"
     networks:
@@ -28,6 +29,8 @@ services:
     working_dir: /app/src/simple-cv-api
     depends_on:
       - simple-cv-postgres
+    volumes:
+      - uploads:/app/src/uploads
     networks:
       - simple-cv-network
     
@@ -49,6 +52,7 @@ services:
 
 volumes:
   postgres_data:
+  uploads:
 
 networks:
   simple-cv-network:

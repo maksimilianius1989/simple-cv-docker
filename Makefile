@@ -13,6 +13,7 @@ init:
 	echo "COOKIE_DOMAIN=.simple-cv.local" >> src/simple-cv-api/.env
 	echo "APP_DOMAIN=http://simple-cv.local:1090" >> src/simple-cv-api/.env
 	echo "API_DOMAIN=http://api.simple-cv.local:1090" >> src/simple-cv-api/.env
+	echo "UPLOADS_PATH=/app/src/uploads" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} build
 	cd src/simple-cv-api && yarn install
 	${DOCKER_COMPOSE} up -d
@@ -32,6 +33,7 @@ init-prod:
 	echo "COOKIE_DOMAIN=.simple-cv.life" >> src/simple-cv-api/.env
 	echo "APP_DOMAIN=https://simple-cv.life" >> src/simple-cv-api/.env
 	echo "API_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
+	echo "UPLOADS_PATH=/app/src/uploads" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
@@ -45,6 +47,7 @@ prod-update:
 	cd src/simple-cv-api && git pull
 	cd src/simple-cv.life.frontend && git pull
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d --build
+	${DOCKER_COMPOSE} ps
 
 prisma:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma ${args}"
