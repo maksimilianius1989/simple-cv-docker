@@ -44,8 +44,8 @@ cloning:
 prod-update:
 	${DOCKER_COMPOSE} down
 	git pull
-	cd src/simple-cv-api && git pull
-	cd src/simple-cv.life.frontend && git pull
+	cd src/simple-cv-api && git checkout -- . && git pull
+	cd src/simple-cv.life.frontend && git checkout -- . && git pull
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d --build
 	${DOCKER_COMPOSE} ps
 
