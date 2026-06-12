@@ -14,6 +14,7 @@ init:
 	echo "APP_DOMAIN=http://simple-cv.local:1090" >> src/simple-cv-api/.env
 	echo "API_DOMAIN=http://api.simple-cv.local:1090" >> src/simple-cv-api/.env
 	echo "UPLOADS_PATH=/app/src/uploads" >> src/simple-cv-api/.env
+	echo "ANALYTICS_SALT=test" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} build
 	cd src/simple-cv-api && yarn install
 	${DOCKER_COMPOSE} up -d
@@ -34,6 +35,7 @@ init-prod:
 	echo "APP_DOMAIN=https://simple-cv.life" >> src/simple-cv-api/.env
 	echo "API_DOMAIN=https://api.simple-cv.life" >> src/simple-cv-api/.env
 	echo "UPLOADS_PATH=/app/src/uploads" >> src/simple-cv-api/.env
+	echo "ANALYTICS_SALT=rrwwref543543fd" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
 
