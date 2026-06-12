@@ -37,7 +37,7 @@ services:
       - simple-cv-network
     depends_on:
       - simple-cv-postgres
-    command: sh -c "yarn start:debug"
+    command: sh -c "yarn install && yarn start:debug"
 
   simple-cv-postgres:
     container_name: simple-cv-postgres

@@ -16,4 +16,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     poppler-utils \
     && rm -rf /var/lib/apt/lists/*
 
+COPY ./ /app/src/simple-cv-api
+
+RUN PUPPETEER_SKIP_DOWNLOAD=true yarn install --frozen-lockfile
+
+
 EXPOSE 3000
