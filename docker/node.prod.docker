@@ -6,6 +6,7 @@ ENV NODE_ENV=production
 
 # System deps (for Puppeteer / Chromium / PDF)
 RUN apt-get update && apt-get install -y --no-install-recommends \
+  unzip \
   chromium \
   fonts-liberation \
   libnss3 \

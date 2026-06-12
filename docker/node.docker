@@ -4,6 +4,7 @@ WORKDIR /app/src/simple-cv-api
 
 # Встановлення залежностей для Chromium і pdftoppm
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    unzip \
     chromium \
     fonts-liberation \
     libnss3 \
