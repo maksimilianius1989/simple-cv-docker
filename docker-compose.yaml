@@ -20,8 +20,7 @@ services:
     networks:
       simple-cv-network:
         aliases:
-          - api.simple-cv.local
-          - simple-cv.local
+          - simple-cv-nestjs
 
   simple-cv-nestjs:
     container_name: simple-cv-nestjs
