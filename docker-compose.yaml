@@ -52,10 +52,19 @@ services:
       POSTGRES_PASSWORD: 123456_test
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./var/logs/postgres:/var/lib/postgresql/data/log
     ports:
       - "1092:5432"
     networks:
       - simple-cv-network
+    command:
+      - postgres
+      - -c
+      - log_min_duration_statement=0
+      - -c
+      - log_directory=log
+      - -c
+      - logging_collector=on
 
 volumes:
   postgres_data:
