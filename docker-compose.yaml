@@ -40,6 +40,8 @@ services:
     depends_on:
       - simple-cv-postgres
     command: sh -c "yarn install && yarn start:debug"
+    environment:
+      - PUPPETEER_SKIP_DOWNLOAD=true
 
   simple-cv-postgres:
     container_name: simple-cv-postgres
