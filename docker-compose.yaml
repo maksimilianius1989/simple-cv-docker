@@ -8,8 +8,10 @@ services:
     platform: linux/amd64
     restart: always
     depends_on:
-      - simple-cv-postgres
-      - simple-cv-nestjs
+      simple-cv-postgres:
+        condition: service_started
+      simple-cv-nestjs-api:
+        condition: service_started
     volumes:
       - ./:/app
       - ./var/logs/nginx:/var/log/nginx
@@ -18,12 +20,10 @@ services:
     ports:
       - "1090:80"
     networks:
-      simple-cv-network:
-        aliases:
-          - simple-cv-nestjs
+      - simple-cv-network
 
-  simple-cv-nestjs:
-    container_name: simple-cv-nestjs
+  simple-cv-nestjs-api:
+    container_name: simple-cv-nestjs-api
     mem_limit: 1024m
     build:
       context: .
@@ -38,12 +38,45 @@ services:
     networks:
       - simple-cv-network
     depends_on:
-      - simple-cv-postgres
-      - simple-cv-kafka
+      simple-cv-postgres:
+        condition: service_started
+      simple-cv-kafka:
+        condition: service_healthy
     command: sh -c "yarn install && yarn start:debug"
     environment:
       - PUPPETEER_SKIP_DOWNLOAD=true
       - KAFKA_BROKERS=simple-cv-kafka:9094
+      - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - APP_MODE=API
+      - SHOULD_RUN_TELEGRAM_POLLING=false
+
+  simple-cv-nestjs-worker:
+    container_name: simple-cv-nestjs-worker
+    mem_limit: 1024m
+    build:
+      context: .
+      dockerfile: docker/node.docker
+    restart: on-failure
+    working_dir: /app/src/simple-cv-api
+    volumes:
+      - ./:/app
+      - uploads:/app/src/uploads
+    ports:
+      - "1094:9230"
+    networks:
+      - simple-cv-network
+    depends_on:
+      simple-cv-postgres:
+        condition: service_started
+      simple-cv-kafka:
+        condition: service_healthy
+    command: sh -c "yarn install && yarn start:debug --debug=0.0.0.0:9230"
+    environment:
+      - PUPPETEER_SKIP_DOWNLOAD=true
+      - KAFKA_BROKERS=simple-cv-kafka:9094
+      - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - APP_MODE=WORKER
+      - SHOULD_RUN_TELEGRAM_POLLING=true
 
   simple-cv-postgres:
     container_name: simple-cv-postgres
@@ -56,7 +89,7 @@ services:
       POSTGRES_PASSWORD: 123456_test
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./var/logs/postgres:/var/log/postgresql
+      - ./var/logs/postgres:/var/lib/postgresql
     ports:
       - "1092:5432"
     networks:
@@ -92,6 +125,12 @@ services:
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
     volumes:
       - /var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
     networks:
       - simple-cv-network
 
@@ -102,7 +141,8 @@ services:
     ports:
       - "1093:8080"
     depends_on:
-      - simple-cv-kafka
+      simple-cv-kafka:
+        condition: service_healthy
     environment:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: simple-cv-kafka:9094

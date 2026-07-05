@@ -66,3 +66,8 @@ prisma:
 
 migrate:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma migrate dev --name ${n}"
+
+dev-restart:
+	${DOCKER_COMPOSE} down
+	${DOCKER_COMPOSE} up -d
+	${DOCKER_COMPOSE} logs -f simple-cv-nestjs-api simple-cv-nestjs-worker

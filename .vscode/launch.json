@@ -2,11 +2,24 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Attach Nest Docker",
+      "name": "Attach Nest API",
       "type": "node",
       "request": "attach",
       "address": "localhost",
       "port": 1091,
+
+      "localRoot": "${workspaceFolder}/src/simple-cv-api",
+      "remoteRoot": "/app/src/simple-cv-api",
+
+      "sourceMaps": true,
+      "skipFiles": ["<node_internals>/**"]
+    },
+        {
+      "name": "Attach Nest Worker",
+      "type": "node",
+      "request": "attach",
+      "address": "localhost",
+      "port": 1094,
 
       "localRoot": "${workspaceFolder}/src/simple-cv-api",
       "remoteRoot": "/app/src/simple-cv-api",
