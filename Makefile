@@ -61,13 +61,26 @@ prod-update:
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d --build
 	${DOCKER_COMPOSE} ps
 
-prisma:
-	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma ${args}"
+yarn:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn ${param}"
 
-migrate:
-	${DOCKER_COMPOSE} exec simple-cv-nestjs sh -c "yarn prisma migrate dev --name ${n}"
+prisma:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma ${param}"
+
+lint-fix:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn lint --fix"
+
+migrate-create:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev --name ${n}"
+
+migrate-applay:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev"
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma generate"
 
 dev-restart:
 	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
 	${DOCKER_COMPOSE} logs -f simple-cv-nestjs-api simple-cv-nestjs-worker
+
+sh:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api bash

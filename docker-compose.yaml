@@ -20,7 +20,9 @@ services:
     ports:
       - "1090:80"
     networks:
-      - simple-cv-network
+      simple-cv-network:
+        aliases:
+          - api.simple-cv.loc
 
   simple-cv-nestjs-api:
     container_name: simple-cv-nestjs-api
