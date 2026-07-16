@@ -52,33 +52,33 @@ services:
       - APP_MODE=API
       - SHOULD_RUN_TELEGRAM_POLLING=false
 
-  # simple-cv-nestjs-worker:
-  #   container_name: simple-cv-nestjs-worker
-  #   mem_limit: 1024m
-  #   build:
-  #     context: .
-  #     dockerfile: docker/node.docker
-  #   restart: on-failure
-  #   working_dir: /app/src/simple-cv-api
-  #   volumes:
-  #     - ./:/app
-  #     - uploads:/app/src/uploads
-  #   ports:
-  #     - "1094:9230"
-  #   networks:
-  #     - simple-cv-network
-  #   depends_on:
-  #     simple-cv-postgres:
-  #       condition: service_started
-  #     simple-cv-kafka:
-  #       condition: service_healthy
-  #   command: sh -c "yarn install && yarn start:debug --debug=0.0.0.0:9230"
-  #   environment:
-  #     - PUPPETEER_SKIP_DOWNLOAD=true
-  #     - KAFKA_BROKERS=simple-cv-kafka:9094
-  #     - KAFKAJS_NO_PARTITIONER_WARNING=1
-  #     - APP_MODE=WORKER
-  #     - SHOULD_RUN_TELEGRAM_POLLING=true
+  simple-cv-nestjs-worker:
+    container_name: simple-cv-nestjs-worker
+    mem_limit: 1024m
+    build:
+      context: .
+      dockerfile: docker/node.docker
+    restart: on-failure
+    working_dir: /app/src/simple-cv-api
+    volumes:
+      - ./:/app
+      - uploads:/app/src/uploads
+    ports:
+      - "1094:9230"
+    networks:
+      - simple-cv-network
+    depends_on:
+      simple-cv-postgres:
+        condition: service_started
+      simple-cv-kafka:
+        condition: service_healthy
+    command: sh -c "yarn install && yarn start:debug --debug=0.0.0.0:9230"
+    environment:
+      - PUPPETEER_SKIP_DOWNLOAD=true
+      - KAFKA_BROKERS=simple-cv-kafka:9094
+      - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - APP_MODE=WORKER
+      - SHOULD_RUN_TELEGRAM_POLLING=true
 
   simple-cv-postgres:
     container_name: simple-cv-postgres

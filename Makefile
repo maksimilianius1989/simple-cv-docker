@@ -71,7 +71,7 @@ lint-fix:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn lint --fix"
 
 migrate-create:
-	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev --name ${n}"
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev --create-only --name ${n}"
 
 migrate-applay:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev"
@@ -80,7 +80,12 @@ migrate-applay:
 dev-restart:
 	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
-	${DOCKER_COMPOSE} logs -f simple-cv-nestjs-api
+	${DOCKER_COMPOSE} logs -f simple-cv-nestjs-api simple-cv-nestjs-worker
+
+node-restart:
+	${DOCKER_COMPOSE} down simple-cv-nestjs-api simple-cv-nestjs-worker simple-cv-nginx
+	${DOCKER_COMPOSE} up -d simple-cv-nestjs-api simple-cv-nestjs-worker simple-cv-nginx
+	${DOCKER_COMPOSE} logs -f  simple-cv-nestjs-api simple-cv-nestjs-worker
 
 sh:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api bash
