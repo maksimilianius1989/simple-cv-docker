@@ -22,7 +22,7 @@ services:
     networks:
       simple-cv-network:
         aliases:
-          - api.simple-cv.loc
+          - api.simple-cv.pet
 
   simple-cv-nestjs-api:
     container_name: simple-cv-nestjs-api

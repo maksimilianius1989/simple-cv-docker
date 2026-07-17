@@ -10,9 +10,9 @@ init:
 	echo "JWT_SECRET=jwtsecrettest" >> src/simple-cv-api/.env
 	echo "JWT_ACCESS_TOKEN_TTL=2h" >> src/simple-cv-api/.env
 	echo "JWT_REFRESH_TOKEN_TTL=7d" >> src/simple-cv-api/.env
-	echo "COOKIE_DOMAIN=.simple-cv.loc" >> src/simple-cv-api/.env
-	echo "APP_DOMAIN=http://simple-cv.loc:1090" >> src/simple-cv-api/.env
-	echo "API_DOMAIN=http://api.simple-cv.loc:1090" >> src/simple-cv-api/.env
+	echo "COOKIE_DOMAIN=.simple-cv.pet" >> src/simple-cv-api/.env
+	echo "APP_DOMAIN=http://simple-cv.pet:1090" >> src/simple-cv-api/.env
+	echo "API_DOMAIN=http://api.simple-cv.pet:1090" >> src/simple-cv-api/.env
 	echo "UPLOADS_PATH=/app/src/uploads" >> src/simple-cv-api/.env
 	echo "ANALYTICS_SALT=test" >> src/simple-cv-api/.env
 	echo "OLLAMA_MODEL=llama3.2:3b" >> src/simple-cv-api/.env
