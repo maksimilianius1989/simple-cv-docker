@@ -12,5 +12,7 @@
   ],
   "settings": {
     "liveServer.settings.multiRootWorkspaceName": "simple-cv.life.frontend",
+    "liveServer.settings.CustomBrowser": "null",
+    "liveServer.settings.NoBrowser": true,
   },
 }
