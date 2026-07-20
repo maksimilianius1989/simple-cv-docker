@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": ".",
+    },
+    {
+      "path": "src/simple-cv.life.frontend",
+    },
+    {
+      "path": "src/simple-cv-api",
+    },
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "simple-cv.life.frontend",
+  },
+}
