@@ -62,10 +62,10 @@ prod-update:
 	${DOCKER_COMPOSE} ps
 
 yarn:
-	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn ${p}"
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn ${c}"
 
 prisma:
-	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma ${p}"
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma ${c}"
 
 lint-fix:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn lint --fix"
