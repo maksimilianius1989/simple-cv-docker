@@ -128,7 +128,7 @@ services:
     volumes:
       - /var/lib/kafka/data
     healthcheck:
-      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 >/dev/null 2>&1"]
+      test: [ "CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 >/dev/null 2>&1" ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -150,10 +150,41 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: simple-cv-kafka:9094
     networks:
       - simple-cv-network
+  simple-cv-redis:
+    container_name: simple-cv-redis
+    image: redis:7-alpine
+    mem_limit: 256m
+    restart: always
+    command: redis-server --save 60 1 --loglevel notice
+    volumes:
+      - redis_data:/data
+    networks:
+      - simple-cv-network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  simple-cv-redis-ui:
+    image: redis/redisinsight:latest
+    container_name: simple-cv-redis-ui
+    restart: always
+    ports:
+      - "1096:5540"
+    depends_on:
+      simple-cv-redis:
+        condition: service_healthy
+    volumes:
+      - redis_insight_data:/db
+    networks:
+      - simple-cv-network
 
 volumes:
   postgres_data:
   uploads:
+  redis_data:
+  redis_insight_data:
 
 networks:
   simple-cv-network:
