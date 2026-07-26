@@ -85,7 +85,7 @@ dev-restart:
 node-restart:
 	${DOCKER_COMPOSE} down simple-cv-nestjs-api simple-cv-nestjs-worker simple-cv-nginx
 	${DOCKER_COMPOSE} up -d simple-cv-nestjs-api simple-cv-nestjs-worker simple-cv-nginx
-	${DOCKER_COMPOSE} logs -f  simple-cv-nestjs-api simple-cv-nestjs-worker
+	make node-logs
 
 nginx-restart:
 	${DOCKER_COMPOSE} down simple-cv-nginx
@@ -93,3 +93,6 @@ nginx-restart:
 
 sh:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api bash
+
+node-logs:
+	${DOCKER_COMPOSE} logs -f  simple-cv-nestjs-api simple-cv-nestjs-worker
