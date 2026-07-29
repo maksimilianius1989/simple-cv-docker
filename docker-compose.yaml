@@ -86,9 +86,9 @@ services:
     image: postgres:17.6
     restart: always
     environment:
-      POSTGRES_DB: simple_cv_test
-      POSTGRES_USER: simple_cv_user_test
-      POSTGRES_PASSWORD: 123456_test
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./var/logs/postgres:/var/lib/postgresql

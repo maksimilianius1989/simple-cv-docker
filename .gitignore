@@ -7,3 +7,5 @@
 !/src/.gitkeep
 
 *.override.yml
+
+/.env
