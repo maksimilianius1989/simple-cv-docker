@@ -18,7 +18,6 @@ init:
 	echo "OLLAMA_MODEL=llama3.2:3b" >> src/simple-cv-api/.env
 	echo "OLLAMA_HOST=https://ai.simple-cv.life" >> src/simple-cv-api/.env
 	echo "OLLAMA_USER=admin" >> src/simple-cv-api/.env
-	echo "OLLAMA_PASS=fjDFFdsf87F6fFDDD" >> src/simple-cv-api/.env
 	echo "OLLAMA_TIMEOUT=600000" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} build
 	cd src/simple-cv-api && yarn install
@@ -44,7 +43,6 @@ init-prod:
 	echo "OLLAMA_MODEL=llama3.2:3b" >> src/simple-cv-api/.env
 	echo "OLLAMA_HOST=https://ai.simple-cv.life" >> src/simple-cv-api/.env
 	echo "OLLAMA_USER=admin" >> src/simple-cv-api/.env
-	echo "OLLAMA_PASS=fjDFFdsf87F6fFDDD" >> src/simple-cv-api/.env
 	echo "OLLAMA_TIMEOUT=600000" >> src/simple-cv-api/.env
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml build
 	${DOCKER_COMPOSE} -f docker-compose.prod.yaml up -d
