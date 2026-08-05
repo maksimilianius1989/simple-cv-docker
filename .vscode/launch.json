@@ -14,7 +14,7 @@
       "sourceMaps": true,
       "skipFiles": ["<node_internals>/**"]
     },
-        {
+    {
       "name": "Attach Nest Worker",
       "type": "node",
       "request": "attach",

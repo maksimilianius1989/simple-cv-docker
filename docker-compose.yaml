@@ -49,8 +49,10 @@ services:
       - PUPPETEER_SKIP_DOWNLOAD=true
       - KAFKA_BROKERS=simple-cv-kafka:9094
       - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - KAFKA_CLIENT_ID=simple-cv-backend-api
+      - KAFKA_GROUP_ID=simple-cv-api-group
       - APP_MODE=API
-      - SHOULD_RUN_TELEGRAM_POLLING=false
+      - SHOULD_RUN_TELEGRAM_POLLING=true
 
   simple-cv-nestjs-worker:
     container_name: simple-cv-nestjs-worker
@@ -77,8 +79,10 @@ services:
       - PUPPETEER_SKIP_DOWNLOAD=true
       - KAFKA_BROKERS=simple-cv-kafka:9094
       - KAFKAJS_NO_PARTITIONER_WARNING=1
+      - KAFKA_CLIENT_ID=simple-cv-backend-worker
+      - KAFKA_GROUP_ID=simple-cv-worker-group
       - APP_MODE=WORKER
-      - SHOULD_RUN_TELEGRAM_POLLING=true
+      - SHOULD_RUN_TELEGRAM_POLLING=false
 
   simple-cv-postgres:
     container_name: simple-cv-postgres
