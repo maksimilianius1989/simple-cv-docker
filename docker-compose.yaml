@@ -95,7 +95,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./var/logs/postgres:/var/lib/postgresql
+      - ./var/logs/postgres:/var/log/postgresql
     ports:
       - "1092:5432"
     networks:
@@ -103,11 +103,15 @@ services:
     command:
       - postgres
       - -c
-      - log_min_duration_statement=0
+      - log_destination=stderr
       - -c
       - logging_collector=on
       - -c
       - log_directory=/var/log/postgresql
+      - -c
+      - log_filename=postgresql-%Y-%m-%d_%H%M%S.log
+      - -c
+      - log_min_duration_statement=0
 
   simple-cv-kafka:
     image: apache/kafka:3.9.0
@@ -154,6 +158,7 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: simple-cv-kafka:9094
     networks:
       - simple-cv-network
+
   simple-cv-redis:
     container_name: simple-cv-redis
     image: redis:7-alpine
