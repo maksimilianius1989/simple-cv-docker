@@ -75,6 +75,9 @@ migrate-applay:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate dev"
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma generate"
 
+migrate-reset:
+	${DOCKER_COMPOSE} exec simple-cv-nestjs-api sh -c "yarn prisma migrate reset"
+
 dev-restart:
 	${DOCKER_COMPOSE} down
 	${DOCKER_COMPOSE} up -d
