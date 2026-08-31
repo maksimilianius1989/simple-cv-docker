@@ -55,7 +55,6 @@ services:
       - SHOULD_RUN_TELEGRAM_POLLING=true
 
   simple-cv-nestjs-worker:
-    container_name: simple-cv-nestjs-worker
     mem_limit: 1024m
     build:
       context: .
@@ -66,7 +65,7 @@ services:
       - ./:/app
       - uploads:/app/src/uploads
     ports:
-      - "1094:9230"
+      - "1094-1095:9230"
     networks:
       - simple-cv-network
     depends_on:
@@ -74,6 +73,9 @@ services:
         condition: service_started
       simple-cv-kafka:
         condition: service_healthy
+    deploy:
+      mode: replicated
+      replicas: 2
     command: sh -c "yarn install && yarn start:debug --debug=0.0.0.0:9230"
     environment:
       - PUPPETEER_SKIP_DOWNLOAD=true
