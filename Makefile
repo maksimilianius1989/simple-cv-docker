@@ -95,5 +95,5 @@ nginx-restart:
 sh:
 	${DOCKER_COMPOSE} exec simple-cv-nestjs-api bash
 
-node-logs:
+logs:
 	${DOCKER_COMPOSE} logs -f  simple-cv-nestjs-api simple-cv-nestjs-worker
