@@ -1,12 +1,15 @@
 {
   "folders": [
     {
+      "name": "simple-cv-docker",
       "path": ".",
     },
     {
+      "name": "simple-cv.life.frontend",
       "path": "src/simple-cv.life.frontend",
     },
     {
+      "name": "simple-cv-api",
       "path": "src/simple-cv-api",
     },
   ],
